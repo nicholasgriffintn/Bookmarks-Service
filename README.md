@@ -12,4 +12,7 @@ Part 1:
 https://nicholasgriffin.dev/blog/28d0d116-9f52-4ac2-bb64-d94f0da5c948
 
 Part 2:
-(Coming soon)
+https://nicholasgriffin.dev/blog/5dd68d54-9dc4-4dc5-9c74-cae872971b17
+
+Part 3:
+(Coming Soon)
