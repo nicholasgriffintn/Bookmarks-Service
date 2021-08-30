@@ -8,4 +8,8 @@ I will also hook up mutations so that Bookmarks can be verified from my Cognito 
 
 You can find the full details for this service here:
 
-TODO: Add blog post link xD
+Part 1:
+https://nicholasgriffin.dev/blog/28d0d116-9f52-4ac2-bb64-d94f0da5c948
+
+Part 2:
+(Coming soon)
