@@ -4,16 +4,6 @@ const { config } = require('./config');
 const s3 = new AWS.S3();
 const dynamodb = new AWS.DynamoDB();
 
-/* const { graphqlLambda } = require('apollo-server-lambda');
-const { makeExecutableSchema } = require('graphql-tools');
-const { schema } = require('./schema');
-const { resolvers } = require('./resolvers');
-
-const graphQLSchema = makeExecutableSchema({
-  typeDefs: schema,
-  resolvers,
-}); */
-
 module.exports.process = async (event) => {
   if (event.Records && event.Records[0] && event.Records[0].s3) {
     try {
@@ -165,16 +155,4 @@ module.exports.process = async (event) => {
   }
 
   throw new Error('Incorrect event params!');
-};
-
-module.exports.graphql = async (event, context, callback) => {
-  /* function callbackWithHeaders(error, output) {
-    // eslint-disable-next-line no-param-reassign
-    output.headers['Access-Control-Allow-Origin'] = '*';
-    callback(error, output);
-  }
-
-  const handler = graphqlLambda({ schema: graphQLSchema });
-  return handler(event, context, callbackWithHeaders); */
-  throw new Error('Internal server error');
 };

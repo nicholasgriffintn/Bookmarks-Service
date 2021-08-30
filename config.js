@@ -3,5 +3,6 @@ exports.config = {
   category: 'bookmarks',
   bucket: 'email.nicholasgriffin.dev',
   keyPrefix: 'processed/bookmarks',
-  tableName: 'Bookmarks-Service'
+  tableName: 'Bookmarks-Service',
+  region: 'eu-west-1',
 };

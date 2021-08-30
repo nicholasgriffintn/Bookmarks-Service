@@ -1,5 +1,8 @@
 service: serverless-bookmarks-service
 
+plugins:
+  - serverless-offline
+
 provider:
   name: aws
   runtime: nodejs12.x
@@ -28,7 +31,7 @@ package:
 
 functions:
   process:
-    handler: handler.process
+    handler: processor.process
     description: Process Bookmark emails to DynamoDB
     timeout: 15
     events:
@@ -40,10 +43,15 @@ functions:
             - suffix: .json
           existing: true
   graphql:
-    handler: handler.graphql
+    handler: api.graphql
     description: GraphQL Service for interacting with the bookmarks data
     timeout: 15
     events:
       - http:
           path: graphql
           method: post
+          cors: true
+      - http:
+          path: graphql
+          method: get
+          cors: true

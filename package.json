@@ -9,9 +9,11 @@
     "deploy": "serverless deploy"
   },
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.28.0",
+    "@aws-sdk/util-dynamodb": "^3.28.0",
+    "apollo-server-core": "^3.3.0",
     "apollo-server-lambda": "^3.3.0",
-    "graphql": "^15.5.1",
-    "graphql-tools": "^8.1.0"
+    "graphql": "^15.5.1"
   },
   "devDependencies": {
     "aws-sdk": "^2.978.0",
