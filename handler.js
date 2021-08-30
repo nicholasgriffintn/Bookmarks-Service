@@ -69,11 +69,11 @@ module.exports.process = async (event) => {
 
           bookmark.title = extractData(html, '<div>Title: ', '</div>');
           bookmark.description = extractData(
-            body,
+            html,
             '<div>Description: ',
             '</div>'
           );
-          bookmark.url = extractData(body, '<div>URL: ', '</div>');
+          bookmark.url = extractData(html, '<div>URL: ', '</div>');
 
           console.log(bookmark);
 
