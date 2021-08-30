@@ -1,0 +1,43 @@
+service: serverless-bookmarks-service
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: prod
+  region: eu-west-1
+  stackName: serverless-bookmarks-service-stack
+  apiName: serverless-bookmarks-service-api
+  iamRoleStatements:
+    - Effect: 'Allow'
+      Action:
+        - 's3:*'
+      Resource: 'arn:aws:s3:::email.nicholasgriffin.dev/*'
+
+package:
+  patterns:
+    - '!config/**'
+    - '!.eslintrc.js'
+    - '!package-lock.json'
+    - '!package.json'
+    - '!yarn.lock'
+    - 'config.js'
+
+functions:
+  process:
+    handler: handler.process
+    description: Process Bookmark emails to DynamoDB
+    timeout: 15
+    events:
+      - s3:
+          bucket: email.nicholasgriffin.dev
+          event: s3:ObjectCreated:*
+          rules:
+            - prefix: processed/bookmarks/
+            - suffix: .json
+          existing: true
+  graphql:
+    handler: handler.graphql
+    events:
+      - http:
+          path: graphql
+          method: post
