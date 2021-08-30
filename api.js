@@ -1,15 +1,11 @@
 const { config } = require('./config');
 
 const { ApolloServer, gql } = require('apollo-server-lambda');
-const {
-  ApolloServerPluginLandingPageGraphQLPlayground,
-} = require('apollo-server-core');
 const { unmarshall } = require('@aws-sdk/util-dynamodb');
 const { DynamoDBClient, ScanCommand } = require('@aws-sdk/client-dynamodb');
 
 const client = new DynamoDBClient({ region: config.region });
 
-// Construct a schema, using GraphQL schema language
 const typeDefs = gql`
   scalar JSON
   type Bookmark {
@@ -48,7 +44,6 @@ const getBookmarks = async () => {
   }
 };
 
-// Provide resolver functions for your schema fields
 const resolvers = {
   Query: {
     bookmarks: () => {
@@ -60,14 +55,7 @@ const resolvers = {
 const gqlServer = new ApolloServer({
   typeDefs,
   resolvers,
-
-  // By default, the GraphQL Playground interface and GraphQL introspection
-  // is disabled in "production" (i.e. when `process.env.NODE_ENV` is `production`).
-  //
-  // If you'd like to have GraphQL Playground and introspection enabled in production,
-  // install the Playground plugin and set the `introspection` option explicitly to `true`.
-  introspection: true,
-  plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
+  introspection: false,
 });
 
 module.exports.graphql = gqlServer.createHandler({
