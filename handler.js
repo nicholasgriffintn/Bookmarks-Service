@@ -75,8 +75,6 @@ module.exports.process = async (event) => {
           );
           bookmark.url = extractData(html, '<div>URL:&nbsp;', '</div>');
 
-          console.log(bookmark);
-
           if (
             bookmark &&
             bookmark.title &&
@@ -122,20 +120,15 @@ module.exports.process = async (event) => {
               TableName: config.tableName,
             };
 
-            console.log(params);
-
             const result = await dynamodb.putItem(params).promise();
 
             if (result) {
-              console.log(result);
               await s3
                 .deleteObject({
                   Bucket: bookmarkBucket,
                   Key: bookmarkKey,
                 })
                 .promise();
-
-              console.log(result);
 
               return {
                 statusCode: 200,
