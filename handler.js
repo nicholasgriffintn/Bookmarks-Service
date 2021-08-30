@@ -73,7 +73,7 @@ module.exports.process = async (event) => {
             '<div>Description: ',
             '</div>'
           );
-          bookmark.url = extractData(html, '<div>URL: ', '</div>');
+          bookmark.url = extractData(html, '<div>URL:&nbsp;', '</div>');
 
           console.log(bookmark);
 
@@ -122,29 +122,31 @@ module.exports.process = async (event) => {
               TableName: config.tableName,
             };
 
-            dynamodb.putItem(params, async function (err, data) {
-              if (err) {
-                throw new Error(err);
-              } else {
-                console.log(data);
-                await s3
-                  .deleteObject({
-                    Bucket: bookmarkBucket,
-                    Key: bookmarkKey,
-                  })
-                  .promise();
+            console.log(params);
 
-                console.log(dataOutput);
+            const result = await dynamodb.putItem(params).promise();
 
-                return {
-                  statusCode: 200,
-                  body: JSON.stringify({
-                    message: dataOutput,
-                    event,
-                  }),
-                };
-              }
-            });
+            if (result) {
+              console.log(result);
+              await s3
+                .deleteObject({
+                  Bucket: bookmarkBucket,
+                  Key: bookmarkKey,
+                })
+                .promise();
+
+              console.log(result);
+
+              return {
+                statusCode: 200,
+                body: JSON.stringify({
+                  message: result,
+                  event,
+                }),
+              };
+            } else {
+              throw new Error('No result from dynamoDb');
+            }
           } else {
             await s3
               .deleteObject({

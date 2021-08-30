@@ -12,6 +12,10 @@ provider:
       Action:
         - 's3:*'
       Resource: 'arn:aws:s3:::email.nicholasgriffin.dev/*'
+    - Effect: 'Allow'
+      Action:
+        - 'dynamodb:*'
+      Resource: 'arn:aws:dynamodb:eu-west-1:175054299308:table/Bookmarks-Service'
 
 package:
   patterns:
@@ -37,6 +41,8 @@ functions:
           existing: true
   graphql:
     handler: handler.graphql
+    description: GraphQL Service for interacting with the bookmarks data
+    timeout: 15
     events:
       - http:
           path: graphql
