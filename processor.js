@@ -103,16 +103,16 @@ module.exports.process = async (event) => {
                   S: JSON.stringify(bookmark),
                 },
                 url: {
-                  s: extractData(bookmark.url, '<a href="', '"'),
+                  S: extractData(bookmark.url, '<a href="', '"') || '',
+                },
+                description: {
+                  S: bookmark.description,
                 },
                 title: {
-                  s: bookmark.title,
-                },
-                title: {
-                  s: bookmark.title,
+                  S: bookmark.title,
                 },
                 screenshot: {
-                  s: bookmark.screenshot,
+                  S: bookmark.screenshot || 'https://via.placeholder.com/450',
                 },
               },
             };
