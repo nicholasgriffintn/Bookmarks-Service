@@ -17,6 +17,10 @@ https://nicholasgriffin.dev/blog/5dd68d54-9dc4-4dc5-9c74-cae872971b17
 Part 3:
 (Coming Soon)
 
+You can also view the GraphQL response here:
+
+https://bookmarks.nicholasgriffin.dev/graphql
+
 ## Example Query
 
 ```json
