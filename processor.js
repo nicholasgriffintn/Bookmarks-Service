@@ -84,9 +84,6 @@ module.exports.process = async (event) => {
                 recieved: {
                   S: recieved,
                 },
-                bookmark: {
-                  S: JSON.stringify(bookmark),
-                },
                 subject: {
                   S: subject,
                 },
@@ -101,6 +98,21 @@ module.exports.process = async (event) => {
                 },
                 toName: {
                   S: toName,
+                },
+                bookmark: {
+                  S: JSON.stringify(bookmark),
+                },
+                url: {
+                  s: extractData(bookmark.url, '<a href="', '"'),
+                },
+                title: {
+                  s: bookmark.title,
+                },
+                title: {
+                  s: bookmark.title,
+                },
+                screenshot: {
+                  s: bookmark.screenshot,
                 },
               },
             };

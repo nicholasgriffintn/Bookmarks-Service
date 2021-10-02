@@ -13,20 +13,30 @@ const typeDefs = gql`
     status: String
     subject: String
     recieved: String
-    bookmark: String
     toName: String
     toAddress: String
     fromName: String
     fromAddress: String
+    bookmark: String
+    url: String
+    title: String
+    description: String
+    screenshot: String
   }
   type Query {
     bookmarks: [Bookmark]
+    unverifiedBookmarks: [Bookmark]
   }
 `;
 
-const getBookmarks = async () => {
+const getBookmarks = async (status = 'verified') => {
   const params = {
     TableName: config.tableName,
+    FilterExpression: '#status = :status',
+    ExpressionAttributeNames: {
+      '#status': 'status',
+    },
+    ExpressionAttributeValues: { ':status': { S: status } },
   };
 
   try {
@@ -48,6 +58,9 @@ const resolvers = {
   Query: {
     bookmarks: () => {
       return getBookmarks();
+    },
+    unverifiedBookmarks: () => {
+      return getBookmarks('unverified');
     },
   },
 };
