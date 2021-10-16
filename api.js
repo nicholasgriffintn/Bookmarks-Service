@@ -63,6 +63,14 @@ const resolvers = {
       return getBookmarks('unverified');
     },
   },
+  Mutation: {
+    update: async (_, data, { dataSources }) => {
+      // TODO
+    },
+    submit: async (_, data, { dataSources }) => {
+      // TODO
+    },
+  },
 };
 
 const gqlServer = new ApolloServer({
